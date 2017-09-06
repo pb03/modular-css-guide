@@ -21,6 +21,7 @@ The main advantage of using modifier classes is that they make the code more pre
 There's also a plus point in grouping it with it's main class.
 
 _Example:_ `.is-` and `.has-` are commonly used modifier in CSS.
+
 ✅
 ```
 .item {
@@ -64,13 +65,8 @@ which compiles to `.onboarding-component__onboarding-heading` & `.onboarding-com
 Do not nest HTML tags within classes. Tags do not really describe what that element does. Also, nesting makes your CSS code less readable.
 
 _Example:_
-<table>
-<tr>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>
+
+❌
 ```
 .time {
   color: black;
@@ -80,8 +76,7 @@ _Example:_
   }
 }
 ```
-</td>
-<td>
+✅
 ```
 .time {
   color: black;
@@ -91,9 +86,6 @@ _Example:_
   color: gray;
 }
 ```
-</td>
-</tr>
-</table>
 
 
 #### How would I know whether I've named the classes correctly or not
@@ -109,6 +101,7 @@ If you or your code reviewer can understand what the classes do only by reading 
 Use proper parent-child relationships. Avoid unnecessary specificity which is also against the CSS selector performance.
 
 _Example:_
+
 ❌
 ```
 .box {
@@ -133,6 +126,7 @@ _Example:_
 
 #### Group pseudo and modifier classes
 _Example_
+
 ❌
 ```
 .dropdown {
@@ -165,6 +159,7 @@ _Example_
 
 #### Use reverse `&` where the style is dependent on a parent element's class
 _Example:_ Continuing with the same dropdown example, suppose the trigger element's style is dependent on the main component div.
+
 ❌
 ```
 .dropdown-trigger {
@@ -191,6 +186,7 @@ If you aren't already doing this, you're gonna feel it a bit difficult to follow
 You might think of sorting them alphabetically but that proven really helpful. The most efficient one is the group order.
 
 _Example:_
+
 ❌
 ```
 .box {
@@ -215,6 +211,7 @@ More details:
 This one is quite obvious but I've seen in many codebases, developers forget to use it. So it might be worth mentioning here.
 
 _Example:_
+
 ❌
 ```
 .item {
