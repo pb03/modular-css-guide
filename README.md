@@ -1,1 +1,254 @@
-# modular-css-guide
+## Writing readable and predictable CSS
+
+
+### Tips for naming the classes
+
+####What should be the name of the class?
+Since we have chosen to write modular CSS, do not confuse with the naming conventions of functional CSS.
+That means it should tell us about the element and not about it's function.
+_Example:_ If you just want to center align your page title, you should name the class as `.page-title` rather than `.align-center` or something similar.
+
+#### Should I follow BEM naming methodology?
+No.
+Since all your components' styles have local scope you don't have to worry prefixing the block names.
+Pro tip: If you feel there are lot elements in your component and you can't manage to name all the classes individually, probably you should break you component into small ones rather than following BEM.
+E.g.
+
+#### Make use of modifier classes
+The main advantage of using modifier classes is that they make the code more predictable whether it is HTML or CSS. Also they make code more readable since we can group them within the main class.
+_Example:_ `.is-` and `.has-` are commonly used modifier in CSS.
+```
+.item {
+  padding: 14px;
+  background-color: #40364D;
+
+  &.is-active {
+    background-color: #2b2434;
+  }
+}
+```
+
+#### Don't prefix component name
+Make sure you do not prefix component name in it's classes. Doing this is absolutely unnecessary, as your JS framework will prefix the component name.
+_Example:_
+```
+.onboarding-heading {
+  ...
+}
+.onboarding-sub-heading {
+  ...
+}
+```
+which compiles to `.onboarding-component__onboarding-heading` & `.onboarding-component__onboarding-sub-heading`. It could be even worse if it had a parent component.
+
+Better way:
+```
+.heading {
+  ...
+}
+.sub-heading {
+  ...
+}
+```
+
+
+#### Assign class to every element
+Do not nest HTML tags within classes. Tags do not really describe what that element does. Also, nesting makes your CSS code less readable.
+_Example:_
+```
+.time {
+  color: black;
+
+  span {
+    color: gray;
+  }
+}
+```
+
+Better way:
+```
+.time {
+  color: black;
+}
+
+.time-unit {
+  color: gray;
+}
+```
+
+#### How to I know whether I've named the classes correctly
+Just a simple trick I use to follow:
+If you or your code reviewer can understand what the classes do only by reading the CSS code then 👍.
+
+
+## Tips for improving Readability
+
+#### Don't nest classes unless really needed
+Use proper parent-child relationships. Avoid unnecessary specificity which is also against the CSS selector performance.
+_Example:_
+```
+.box {
+  ...
+
+  .title {
+    ...
+  }
+}
+```
+
+Better way:
+```
+.box {
+  ...
+}
+
+.box-title {
+  ...
+}
+```
+
+#### Group pseudo and modifier classes
+_Example_
+```
+.dropdown {
+  ...
+}
+
+.dropdown:hover {
+  ...
+}
+
+.dropdown.is-collapsed {
+  ...
+}
+```
+
+Tick:
+```
+.dropdown {
+  ...
+
+  &:hover {
+    ...
+  }
+
+  &.is-collapsed {
+    ...
+  }
+}
+```
+
+#### Use reverse `&` where the style is dependent on a parent element's class
+_Example:_ Continuing with the same dropdown example, suppose the trigger element's style is dependent on the main component div.
+x
+```
+.dropdown-trigger {
+  ...
+}
+
+.is-collapsed .dropdown-trigger {
+  ...
+}
+```
+
+tick:
+```
+.dropdown-trigger {
+  ...
+  .is-collapsed & {
+    ...
+  }
+}
+```
+
+#### It's good to write the properties in order
+If you aren't already doing this, you're gonna feel it a bit difficult to follow in the beginning but believe me you gonna love it once you're used to it.
+You might think of sorting them alphabetically but that proven really helpful. The most efficient one is the group order.
+_Example:_
+```
+.box {
+  background-color: #fff;
+  width: 200px;
+  position: relative;
+  height: 300px;
+}
+```
+
+```
+.box {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  background-color: #fff;
+}
+```
+More details:
+
+#### Use `:not()` instead of overriding property values
+This one is quite obvious but I've seen in many codebases, developers forget to use it. So it might be worth mentioning here.
+_Example:_
+```
+.item {
+  border: 1px solid #eee;
+
+  &:last-child {
+    border: 0;
+  }
+}
+```
+
+```
+.item:not(:last-child) {
+  border: 1px solid #eee;
+}
+```
+
+#### Going against best practices?
+Several times we write the CSS that simply doesn't feel right like using negative margins, using `!important`, etc. It's good to avoid such code but if you have to then make sure:
+a) it's the only solution -- means you know that you have to refactor lot of code otherwise which is not quite worth
+b) it won't have any side-effects
+**And always add a comment in such conditions.**
+
+##Abstraction in Modular CSS
+No, don't do that. Keep your CSS within the same component. If you think that you're repeating the same code in several components, create the mixins instead.
+
+
+## Make no mistakes - a couple of other tips
+
+####Avoid using shorthands
+Yes, CSS shorthands should be considered as anti-patterns unless you're changing all the values of a property.
+
+How do we misuse the shorthands:
+```
+.card {
+  background: #fff;
+}
+```
+
+What we are actually telling the browser to do:
+```
+.card {
+  background-image: initial;
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: initial;
+  background-repeat-x: initial;
+  background-repeat-y: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: #fff;
+}
+```
+
+What we really meant:
+```
+.card {
+  background-color: #fff;
+}
+```
+
+More detail on problems with shorthands:
+
+#### Avoid `margin-top` and go with `margin-bottom`
+Unlike horizontal margins, vertical margins do collapse. To avoid this, it's a good idea to always give margin in one direction. Choosing the one with the most use cases, good to go with `margin-bottom`.
