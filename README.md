@@ -1,4 +1,4 @@
-## Writing readable and predictable CSS
+# Writing readable and predictable CSS
 
 
 ### Tips for naming the classes
@@ -12,13 +12,16 @@ _Example:_ If you just want to center align your page title, you should name the
 #### Should I follow [BEM naming methodology](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)?
 No.
 Since your CSS has local scope you don't have to worry prefixing the block names.
+
 Tip: If you feel there are lot elements in your component and you can't manage to name all the classes individually, probably you should break you component into small ones rather than following BEM.
 E.g.
 
 #### Make use of modifier classes
-The main advantage of using modifier classes is that they make the code more predictable whether it is HTML or CSS. Also they make code more readable since we can group them within the main class.
+The main advantage of using modifier classes is that they make the code more predictable whether it is HTML or CSS.
+There's also a plus point in grouping it with it's main class.
 
 _Example:_ `.is-` and `.has-` are commonly used modifier in CSS.
+✅
 ```
 .item {
   padding: 14px;
@@ -31,9 +34,10 @@ _Example:_ `.is-` and `.has-` are commonly used modifier in CSS.
 ```
 
 #### Don't prefix component name
-Make sure you do not prefix component name in it's classes. Doing this is absolutely unnecessary, as your JS framework will prefix the component name.
+Doing this is absolutely unnecessary, as your JS framework is already prefixing the component name.
 
-_Example:_
+**Example:**
+❌
 ```
 .onboarding-heading {
   ...
@@ -44,7 +48,7 @@ _Example:_
 ```
 which compiles to `.onboarding-component__onboarding-heading` & `.onboarding-component__onboarding-sub-heading`. It could be even worse if it had a parent component.
 
-Better way:
+✅
 ```
 .heading {
   ...
@@ -58,7 +62,8 @@ Better way:
 #### Assign class to every element
 Do not nest HTML tags within classes. Tags do not really describe what that element does. Also, nesting makes your CSS code less readable.
 
-_Example:_
+**Example:**
+❌
 ```
 .time {
   color: black;
@@ -69,7 +74,7 @@ _Example:_
 }
 ```
 
-Better way:
+✅
 ```
 .time {
   color: black;
@@ -80,9 +85,11 @@ Better way:
 }
 ```
 
-#### How to I know whether I've named the classes correctly
+#### How would I know whether I've named the classes correctly or not
 Just a simple trick I use to follow:
+
 If you or your code reviewer can understand what the classes do only by reading the CSS code then 👍.
+
 
 
 ## Tips for improving Readability
@@ -91,6 +98,7 @@ If you or your code reviewer can understand what the classes do only by reading 
 Use proper parent-child relationships. Avoid unnecessary specificity which is also against the CSS selector performance.
 
 _Example:_
+❌
 ```
 .box {
   ...
@@ -101,7 +109,7 @@ _Example:_
 }
 ```
 
-Better way:
+✅
 ```
 .box {
   ...
@@ -114,6 +122,7 @@ Better way:
 
 #### Group pseudo and modifier classes
 _Example_
+❌
 ```
 .dropdown {
   ...
@@ -128,7 +137,7 @@ _Example_
 }
 ```
 
-Tick:
+✅
 ```
 .dropdown {
   ...
@@ -145,7 +154,7 @@ Tick:
 
 #### Use reverse `&` where the style is dependent on a parent element's class
 _Example:_ Continuing with the same dropdown example, suppose the trigger element's style is dependent on the main component div.
-x
+❌
 ```
 .dropdown-trigger {
   ...
@@ -156,7 +165,7 @@ x
 }
 ```
 
-tick:
+✅
 ```
 .dropdown-trigger {
   ...
@@ -171,6 +180,7 @@ If you aren't already doing this, you're gonna feel it a bit difficult to follow
 You might think of sorting them alphabetically but that proven really helpful. The most efficient one is the group order.
 
 _Example:_
+❌
 ```
 .box {
   background-color: #fff;
@@ -179,7 +189,7 @@ _Example:_
   height: 300px;
 }
 ```
-
+✅
 ```
 .box {
   position: relative;
@@ -194,6 +204,7 @@ More details:
 This one is quite obvious but I've seen in many codebases, developers forget to use it. So it might be worth mentioning here.
 
 _Example:_
+❌
 ```
 .item {
   border: 1px solid #eee;
@@ -204,6 +215,7 @@ _Example:_
 }
 ```
 
+✅
 ```
 .item:not(:last-child) {
   border: 1px solid #eee;
@@ -216,16 +228,18 @@ a) it's the only solution -- means you know that you have to refactor lot of cod
 b) it won't have any side-effects
 **And always add a comment in such conditions.**
 
-##Abstraction in Modular CSS
-No, don't do that. Keep your CSS within the same component. If you think that you're repeating the same code in several components, create the mixins instead.
+#### Abstraction in modular CSS?
+Don't do that. Keep your CSS within the same component. If you think that you're repeating the same code in several components, create the mixins instead.
+
 
 
 ## Make no mistakes - a couple of other tips
 
-####Avoid using shorthands
+#### Avoid using shorthands
 Yes, CSS shorthands should be considered as anti-patterns unless you're changing all the values of a property.
 
 How do we misuse the shorthands:
+
 ```
 .card {
   background: #fff;
@@ -257,5 +271,5 @@ What we really meant:
 
 More detail on problems with shorthands:
 
-#### Avoid `margin-top` and go with `margin-bottom`
+#### Avoid `margin-top` and give `margin-bottom`
 Unlike horizontal margins, vertical margins do collapse. To avoid this, it's a good idea to always give margin in one direction. Choosing the one with the most use cases, good to go with `margin-bottom`.
