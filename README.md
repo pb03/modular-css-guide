@@ -1,11 +1,11 @@
 # Writing readable and predictable CSS
 
 
-### Tips for naming the classes
+## Tips for naming the classes
 
 #### What should be the name of the class?
 Since we are writing modular CSS, you should not confuse with the naming conventions of functional CSS.
-That means the class name should tell about the element, not about the function it performs.
+This means the class name should tell about the element, not about the function it performs.
 
 _Example:_ If you just want to center align your page title, you should name the class as `.page-title` rather than `.align-center` or something similar.
 
@@ -36,7 +36,8 @@ _Example:_ `.is-` and `.has-` are commonly used modifier in CSS.
 #### Don't prefix component name
 Doing this is absolutely unnecessary, as your JS framework is already prefixing the component name.
 
-**Example:**
+_Example:_
+
 ❌
 ```
 .onboarding-heading {
@@ -62,8 +63,14 @@ which compiles to `.onboarding-component__onboarding-heading` & `.onboarding-com
 #### Assign class to every element
 Do not nest HTML tags within classes. Tags do not really describe what that element does. Also, nesting makes your CSS code less readable.
 
-**Example:**
-❌
+_Example:_
+<table>
+<tr>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>
 ```
 .time {
   color: black;
@@ -73,8 +80,8 @@ Do not nest HTML tags within classes. Tags do not really describe what that elem
   }
 }
 ```
-
-✅
+</td>
+<td>
 ```
 .time {
   color: black;
@@ -84,6 +91,10 @@ Do not nest HTML tags within classes. Tags do not really describe what that elem
   color: gray;
 }
 ```
+</td>
+</tr>
+</table>
+
 
 #### How would I know whether I've named the classes correctly or not
 Just a simple trick I use to follow:
