@@ -3,19 +3,21 @@
 
 ### Tips for naming the classes
 
-####What should be the name of the class?
-Since we have chosen to write modular CSS, do not confuse with the naming conventions of functional CSS.
-That means it should tell us about the element and not about it's function.
+#### What should be the name of the class?
+Since we are writing modular CSS, you should not confuse with the naming conventions of functional CSS.
+That means the class name should tell about the element, not about the function it performs.
+
 _Example:_ If you just want to center align your page title, you should name the class as `.page-title` rather than `.align-center` or something similar.
 
-#### Should I follow BEM naming methodology?
+#### Should I follow [BEM naming methodology](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)?
 No.
-Since all your components' styles have local scope you don't have to worry prefixing the block names.
-Pro tip: If you feel there are lot elements in your component and you can't manage to name all the classes individually, probably you should break you component into small ones rather than following BEM.
+Since your CSS has local scope you don't have to worry prefixing the block names.
+Tip: If you feel there are lot elements in your component and you can't manage to name all the classes individually, probably you should break you component into small ones rather than following BEM.
 E.g.
 
 #### Make use of modifier classes
 The main advantage of using modifier classes is that they make the code more predictable whether it is HTML or CSS. Also they make code more readable since we can group them within the main class.
+
 _Example:_ `.is-` and `.has-` are commonly used modifier in CSS.
 ```
 .item {
@@ -30,6 +32,7 @@ _Example:_ `.is-` and `.has-` are commonly used modifier in CSS.
 
 #### Don't prefix component name
 Make sure you do not prefix component name in it's classes. Doing this is absolutely unnecessary, as your JS framework will prefix the component name.
+
 _Example:_
 ```
 .onboarding-heading {
@@ -54,6 +57,7 @@ Better way:
 
 #### Assign class to every element
 Do not nest HTML tags within classes. Tags do not really describe what that element does. Also, nesting makes your CSS code less readable.
+
 _Example:_
 ```
 .time {
@@ -85,6 +89,7 @@ If you or your code reviewer can understand what the classes do only by reading 
 
 #### Don't nest classes unless really needed
 Use proper parent-child relationships. Avoid unnecessary specificity which is also against the CSS selector performance.
+
 _Example:_
 ```
 .box {
@@ -164,6 +169,7 @@ tick:
 #### It's good to write the properties in order
 If you aren't already doing this, you're gonna feel it a bit difficult to follow in the beginning but believe me you gonna love it once you're used to it.
 You might think of sorting them alphabetically but that proven really helpful. The most efficient one is the group order.
+
 _Example:_
 ```
 .box {
@@ -186,6 +192,7 @@ More details:
 
 #### Use `:not()` instead of overriding property values
 This one is quite obvious but I've seen in many codebases, developers forget to use it. So it might be worth mentioning here.
+
 _Example:_
 ```
 .item {
