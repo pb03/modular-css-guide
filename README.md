@@ -205,7 +205,53 @@ _Example:_
   background-color: #fff;
 }
 ```
-More details:
+
+<details>
+  <summary>More details on ordering CSS properties</summary>
+  <pre><code>
+    .selector {
+      
+      /* Imported style */
+      @extend %another-style;
+      
+      /* CSS content */
+      content: '';
+      
+      /* Position */
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      right: 0;
+      
+      /* Display & box model */
+      display: inline-block;
+      overflow: hidden;
+      width: 100px;
+      height: 100px;
+      padding: 10px;
+      margin: 10px;
+      border: 10px solid #333;
+      
+      /* Color */
+      background: #000;
+      color: #fff;
+      
+      /* Text */
+      font-family: sans-serif;
+      font-size: 16px;
+      line-height: 1.4;
+      text-align: right;
+      
+      /* Other */
+      cursor: pointer;
+      
+      /* Transition & animation */
+      transition: color 0.15s;
+      animation: slide 0.2s forwards;
+    }
+
+ </code></pre>
+</details>
 
 #### Use `:not()` instead of overriding property values
 This one is quite obvious but I've seen in many codebases, developers forget to use it. So it might be worth mentioning here.
@@ -276,8 +322,26 @@ What we really meant:
   background-color: #fff;
 }
 ```
+<details>
+<summary>Brief on problems with shorthands</summary>
 
-More detail on problems with shorthands:
+Suppose you want to override font properties for an element:
+<pre><code>
+body {
+  font-family: 'Source Sans Pro';
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+
+.box {
+  font: 30px 'Fira Code';
+}
+</code></pre>
+
+and unknowing your line-height is set to initial.
+</details>
+
 
 #### Avoid `margin-top` and give `margin-bottom`
 Unlike horizontal margins, vertical margins do collapse. To avoid this, it's a good idea to always give margin in one direction. Choosing the one with the most use cases, good to go with `margin-bottom`.
