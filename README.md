@@ -1,7 +1,7 @@
 # Writing readable and predictable CSS
 
 
-## Tips for naming the classes
+## Tips for naming classes
 
 #### What should be the name of the class?
 Since we are writing modular CSS, you should not confuse with the naming conventions of functional CSS.
@@ -9,12 +9,14 @@ This means the class name should tell about the element, not about the function 
 
 _Example:_ If you just want to center align your page title, you should name the class as `.page-title` rather than `.align-center` or something similar.
 
+
 #### Should I follow [BEM naming methodology](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)?
 No.
 Since your CSS has local scope you don't have to worry prefixing the block names.
 
 Tip: If you feel there are lot elements in your component and you can't manage to name all the classes individually, probably you should break you component into small ones rather than following BEM.
 E.g.
+
 
 #### Make use of modifier classes
 The main advantage of using modifier classes is that they make the code more predictable whether it is HTML or CSS.
@@ -33,6 +35,7 @@ _Example:_ `.is-` and `.has-` are commonly used modifier in CSS.
   }
 }
 ```
+
 
 #### Don't prefix component name
 Doing this is absolutely unnecessary, as your JS framework is already prefixing the component name.
@@ -61,6 +64,7 @@ which compiles to `.onboarding-component__onboarding-heading` & `.onboarding-com
 ```
 
 
+
 #### Assign class to every element
 Do not nest HTML tags within classes. Tags do not really describe what that element does. Also, nesting makes your CSS code less readable.
 
@@ -86,6 +90,22 @@ _Example:_
   color: gray;
 }
 ```
+
+Apart from readability, nesting also affects the performance of selectors.
+<details>
+  <summary>Read more about selector performance</summary>
+  
+  
+  There are 2 reasons of avoiding attribute selectors.
+  
+  1) They are the least performant by themselves.
+  
+  2) Browsers read CSS selectors from right to left direction. Taking an example of a menu item <code>.menu li a</code>:
+  
+  Here browser will read the first selector as <code>a</code> then check if it lives inside <code>li</code>, finally check if they both live  inside <code>.menu</code>. This does not affect when there are a few elements on the page but considering too many elements in a complex design, you should definitely avoid this.
+  
+  
+</details>
 
 
 #### How would I know whether I've named the classes correctly or not
@@ -124,6 +144,7 @@ _Example:_
 }
 ```
 
+
 #### Group pseudo and modifier classes
 _Example_
 
@@ -157,6 +178,7 @@ _Example_
 }
 ```
 
+
 #### Use reverse `&` where the style is dependent on a parent element's class
 _Example:_ Continuing with the same dropdown example, suppose the trigger element's style is dependent on the main component div.
 
@@ -180,6 +202,7 @@ _Example:_ Continuing with the same dropdown example, suppose the trigger elemen
   }
 }
 ```
+
 
 #### It's good to write the properties in order
 If you aren't already doing this, you're gonna feel it a bit difficult to follow in the beginning but believe me you gonna love it once you're used to it.
@@ -253,6 +276,7 @@ _Example:_
  </code></pre>
 </details>
 
+
 #### Use `:not()` instead of overriding property values
 This one is quite obvious but I've seen in many codebases, developers forget to use it. So it might be worth mentioning here.
 
@@ -276,11 +300,13 @@ _Example:_
 }
 ```
 
+
 #### Going against best practices?
 Several times we write the CSS that simply doesn't feel right like using negative margins, using `!important`, etc. It's good to avoid such code but if you have to then make sure:
 a) it's the only solution -- means you know that you have to refactor lot of code otherwise which is not quite worth
 b) it won't have any side-effects
 **And always add a comment in such conditions.**
+
 
 #### Abstraction in modular CSS?
 Don't do that. Keep your CSS within the same component. If you think that you're repeating the same code in several components, create the mixins instead.
@@ -341,6 +367,7 @@ body {
 
 and unknowing your line-height is set to initial.
 </details>
+
 
 
 #### Avoid `margin-top` and give `margin-bottom`
