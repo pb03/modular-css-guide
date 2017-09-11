@@ -1,6 +1,6 @@
 # Writing readable and predictable CSS
 
-> *This guide has been written for modular CSS with the assumption of using SCSS as a pre-processor.*
+*This guide has been written for **modular CSS** with the assumption of using SCSS as a pre-processor.*
 
 
 ## Tips for naming classes
