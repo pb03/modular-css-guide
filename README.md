@@ -11,18 +11,19 @@ This means the class name should tell about the element, not about the function 
 
 _Example:_ If you just want to center align your page title, you should name the class as `.page-title` rather than `.align-center` or something similar.
 
+&nbsp;
 
 #### Should I follow [BEM naming methodology](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)?
 No.
 Since your CSS has local scope you don't have to worry prefixing the block names.
 
-Tip: If you feel there are lot elements in your component and you can't manage to name all the classes individually, probably you should break you component into small ones rather than following BEM.
-E.g.
+If you have quite a lot elements in your component and you can't manage to name classes for all the elements, probably you should break you component into small ones rather than following BEM.
 
+&nbsp;
 
 #### Make use of modifier classes
-The main advantage of using modifier classes is that they make the code more predictable whether it is HTML or CSS.
-There's also a plus point in grouping it with it's main class.
+The advantage of having modifier classes is that they make your code more predictable both in HTML & CSS.
+Other benefit is that you can always group it with it's main class.
 
 _Example:_ `.is-` and `.has-` are commonly used modifier in CSS.
 
@@ -38,33 +39,7 @@ _Example:_ `.is-` and `.has-` are commonly used modifier in CSS.
 }
 ```
 
-
-#### Don't prefix component name
-Doing this is absolutely unnecessary, if your JS framework is already prefixing the component name.
-
-_Example:_
-
-❌
-```
-.onboarding-heading {
-  ...
-}
-.onboarding-sub-heading {
-  ...
-}
-```
-which compiles to `.onboarding-component__onboarding-heading` & `.onboarding-component__onboarding-sub-heading`. It could be even worse if it had a parent component.
-
-✅
-```
-.heading {
-  ...
-}
-.sub-heading {
-  ...
-}
-```
-
+&nbsp;
 
 
 #### Assign class to every element
@@ -109,6 +84,35 @@ Apart from readability, nesting also affects the performance of selectors.
   
 </details>
 
+&nbsp;
+
+#### Don't prefix component name
+Doing this is absolutely unnecessary, if your JS framework is already prefixing the component name.
+
+_Example:_
+
+❌
+```
+.onboarding-heading {
+  ...
+}
+.onboarding-sub-heading {
+  ...
+}
+```
+which compiles to `.onboarding-component__onboarding-heading` & `.onboarding-component__onboarding-sub-heading`. It could be even worse if it had a parent component.
+
+✅
+```
+.heading {
+  ...
+}
+.sub-heading {
+  ...
+}
+```
+
+&nbsp;
 
 #### How would I know whether I've named the classes correctly or not
 Just a simple trick I use to follow:
