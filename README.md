@@ -1,5 +1,7 @@
 # Writing readable and predictable CSS
 
+> *This guide has been written for modular CSS with the assumption of using SCSS as a pre-processor.*
+
 
 ## Tips for naming classes
 
@@ -38,7 +40,7 @@ _Example:_ `.is-` and `.has-` are commonly used modifier in CSS.
 
 
 #### Don't prefix component name
-Doing this is absolutely unnecessary, as your JS framework is already prefixing the component name.
+Doing this is absolutely unnecessary, if your JS framework is already prefixing the component name.
 
 _Example:_
 
@@ -94,7 +96,7 @@ _Example:_
 Apart from readability, nesting also affects the performance of selectors.
 <details>
   <summary>Read more about selector performance</summary>
-  
+  &nbsp;
   
   There are 2 reasons of avoiding attribute selectors.
   
@@ -371,4 +373,4 @@ and unknowing your line-height is set to initial.
 
 
 #### Avoid `margin-top` and give `margin-bottom`
-Unlike horizontal margins, vertical margins do collapse. To avoid this, it's a good idea to always give margin in one direction. Choosing the one with the most use cases, good to go with `margin-bottom`.
+Unlike horizontal margins, vertical margins do collapse. To avoid this, it's a good idea to always give margin in one direction. Choosing one with the most use cases, good to go with `margin-bottom`.
