@@ -1,27 +1,29 @@
 # Writing readable and predictable CSS
 
-> *This guide has been written for **modular CSS** with an assumption of using SCSS as a pre-processor.*
+> *This guide has been written for **modular CSS architecture** with an assumption of using SCSS as a pre-processor.*
 
 
 ## Tips for naming classes
 
-#### What should be the name of the class?
+#### What should be the name of class?
 Since we are writing modular CSS, you should not confuse with the naming conventions of functional CSS.
 This means the class name should tell about the element, not about the function it performs.
 
 _Example:_ If you just want to center align your page title, you should name the class as `.page-title` rather than `.align-center` or something similar.
+
 &nbsp;
 #### Should I follow [BEM naming methodology](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)?
 No.
-Since your CSS has local scope you don't have to worry prefixing the block names.
+Since your CSS has the local scope you don't have to worry prefixing the block names.
 
-If you have quite a lot elements in your component and you can't manage to name classes for all the elements, probably you should break you component into small ones rather than following BEM.
+(In a situation where you have quite a lot elements in your component and you can't manage to name classes for each element, probably you should break your component into small ones rather than following BEM.)
+
 &nbsp;
 #### Make use of modifier classes
-The advantage of having modifier classes is that they make your code more predictable both in HTML & CSS.
+Make your code more predictable both in HTML & CSS files with modifier classes.
 Other benefit is that you can always group it with it's main class.
 
-_Example:_ `.is-` and `.has-` are commonly used modifier in CSS.
+_Example:_ `.is-` and `.has-` are commonly used modifiers in CSS.
 
 ✅
 ```
@@ -36,7 +38,7 @@ _Example:_ `.is-` and `.has-` are commonly used modifier in CSS.
 ```
 &nbsp;
 #### Assign class to every element
-Do not nest HTML tags within classes. Tags do not really describe what that element does. Also, nesting makes your CSS code less readable.
+Do not (or try not to) nest attribute selectors within classes. HTML tags in CSS code do not really describe what that element is used for. Also, nesting makes your CSS code less readable.
 
 _Example:_
 
@@ -61,7 +63,7 @@ _Example:_
 }
 ```
 
-Apart from readability, nesting also affects the performance of selectors.
+Apart from this, nesting also affects the performance of selectors.
 <details>
   <summary>Read more about selector performance</summary>
   &nbsp;
