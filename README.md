@@ -74,7 +74,7 @@ Apart from this, nesting also affects the performance of selectors.
   
   2) Browsers read CSS selectors from right to left direction. Taking an example of a menu item <code>.menu li a</code>:
   
-  Here browser will read the first selector as <code>a</code> then check if it lives inside <code>li</code>, finally check if they both live  inside <code>.menu</code>. This does not affect when there are a few elements on the page but considering too many elements in a complex design, you should definitely avoid this.
+  Here browser will read <code>a</code> as the first selector then check if it lives inside <code>li</code>, finally check if they both live  inside <code>.menu</code>. This does not affect when there are a few elements on the page but considering too many elements in a complex design, you should definitely avoid this.
   
   
 </details>
@@ -82,7 +82,7 @@ Apart from this, nesting also affects the performance of selectors.
 &nbsp;
 
 #### Don't prefix component name
-Doing this is absolutely unnecessary, if your JS framework is already prefixing the component name.
+Doing this is absolutely unnecessary if your JS framework is already prefixing the component name.
 
 _Example:_
 
@@ -91,6 +91,7 @@ _Example:_
 .onboarding-heading {
   ...
 }
+
 .onboarding-sub-heading {
   ...
 }
@@ -102,6 +103,7 @@ which compiles to `.onboarding-component__onboarding-heading` & `.onboarding-com
 .heading {
   ...
 }
+
 .sub-heading {
   ...
 }
@@ -110,7 +112,7 @@ which compiles to `.onboarding-component__onboarding-heading` & `.onboarding-com
 &nbsp;
 
 #### How would I know whether I've named the classes correctly or not
-Just a simple trick I use to follow:
+Just a simple trick to follow:
 
 If you or your code reviewer can understand what the classes do only by reading the CSS file then 👍.
 
@@ -119,7 +121,7 @@ If you or your code reviewer can understand what the classes do only by reading 
 ## Tips for improving Readability
 
 #### Don't nest classes unless really needed
-Use proper parent-child relationships. Avoid unnecessary specificity which is also against the CSS selector performance.
+Use proper **parent-child relationships**. Avoid unnecessary specificity which is also against the CSS selector performance.
 
 _Example:_
 
@@ -198,6 +200,7 @@ _Example:_ Continuing with the same dropdown example, suppose the trigger elemen
 ```
 .dropdown-trigger {
   ...
+  
   .is-collapsed & {
     ...
   }
@@ -206,8 +209,8 @@ _Example:_ Continuing with the same dropdown example, suppose the trigger elemen
 
 
 #### It's good to write the properties in order
-If you aren't already doing this, you're gonna feel it a bit difficult to follow in the beginning but believe me you gonna love it once you're used to it.
-You might think of sorting them alphabetically but that proven really helpful. The most efficient one is the group order.
+If you aren't already doing this, you're gonna feel it a bit difficult to follow in the beginning but believe me you will love it once you get used to it.
+We could do sorting in alphabetical order but that hasn't turned out to be very helpful. The most efficient one is ordering by property groups.
 
 _Example:_
 
@@ -303,21 +306,18 @@ _Example:_
 
 
 #### Going against best practices?
-Several times we write the CSS that simply doesn't feel right like using negative margins, using `!important`, etc. It's good to avoid such code but if you have to then make sure:
-a) it's the only solution -- means you know that you have to refactor lot of code otherwise which is not quite worth
-b) it won't have any side-effects
-**And always add a comment in such conditions.**
+Several times we write the CSS that simply doesn't feel right, for example, using negative margins, `!important`, etc. It's good to avoid such code but in case it is the only best possible solution, **don't forget to add a comment describing the problem**.
 
 
 #### Abstraction in modular CSS?
-Don't do that. Keep your CSS within the same component. If you think that you're repeating the same code in several components, create the mixins instead.
+No. Keep your CSS within the same component. If you think that you're repeating the same code in several components, create the mixins instead.
 
+&nbsp;
 
-
-## Make no mistakes - a couple of other tips
+## Avoid mistakes
 
 #### Avoid using shorthands
-Yes, CSS shorthands should be considered as anti-patterns unless you're changing all the values of a property.
+Yes, CSS shorthands are considered as anti-patterns unless you're changing all the values of a property.
 
 How do we misuse the shorthands:
 
