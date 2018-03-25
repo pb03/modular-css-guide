@@ -1,32 +1,29 @@
-# Writing readable and predictable CSS
+# A guide to writing modular CSS
 
-> *This guide has been written for **modular CSS architecture** with an assumption of using SCSS as a pre-processor.*
+## Naming CSS classes
 
+#### 1. How should you name a class?
+Since we are writing **modular CSS**, do not confuse it with the naming conventions of **functional CSS**.
+This means the class name should tell about **what the element is** and not about the **function it performs**.
 
-## Tips for naming classes
-
-#### What should be the name of class?
-Since we are writing modular CSS, you should not confuse with the naming conventions of functional CSS.
-This means the class name should tell about the element, not about the function it performs.
-
-_Example:_ If you just want to center align your page title, you should name the class as `.page-title` rather than `.align-center` or something similar.
+_Example:_ Suppose you want to center align your page title, the class name should be `.page-title` instead of `.align-center`.
 
 &nbsp;
-#### Should I follow [BEM naming methodology](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)?
+#### 2. Do you need to follow [BEM naming methodology](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)?
 No.
-Since your CSS has the local scope you don't have to worry prefixing the block names.
+Since your CSS has local scope you don't have to worry prefixing the block names.
 
-(In a situation where you have quite a lot elements in your component and you can't manage to name classes for each element, probably you should break your component into small ones rather than following BEM.)
+In situations where you have quite a lot of elements in your component or you find it difficult to name classes for each element, you should consider breaking your component up into small ones avoiding BEM.
 
 &nbsp;
-#### Make use of modifier classes
+#### 3. Make use of modifier classes
 Make your code more predictable both in HTML & CSS files with modifier classes.
-Other benefit is that you can always group it with it's main class.
+Another benefit is that you can always group it with it's main class.
 
 _Example:_ `.is-` and `.has-` are commonly used modifiers in CSS.
 
-✅
-```
+👍
+```scss
 .item {
   padding: 14px;
   background-color: #40364D;
@@ -37,57 +34,65 @@ _Example:_ `.is-` and `.has-` are commonly used modifiers in CSS.
 }
 ```
 &nbsp;
-#### Assign class to every element
-Do not (or try not to) nest attribute selectors within classes. HTML tags in CSS code do not really describe what that element is used for. Also, nesting makes your CSS code less readable.
+#### 4. Avoid using attribute selectors, instead assign class to every key selector
+Do not (or try not to) nest attribute selectors within classes. These selectors do not really describe what an element is used for. Also, nesting makes your CSS code less readable.
 
 _Example:_
 
-❌
+👎
+```hbs
+<div local-class="timestamp">
+  <time>09: 00</time> AM
+</div>
 ```
-.time {
-  color: black;
+```scss
+.timestamp {
+  font-size: 16px;
 
-  span {
-    color: gray;
+  time {
+    font-size: 18px;
   }
 }
 ```
-✅
+
+👍
+```hbs
+<div local-class="timestamp">
+  <time local-class="time-value">09: 00</time> AM
+</div>
 ```
-.time {
-  color: black;
+```scss
+.timestamp {
+  font-size: 16px;
 }
 
-.time-unit {
-  color: gray;
+.time-value {
+  font-size: 18px;
 }
 ```
 
 Apart from this, nesting also affects the performance of selectors.
 <details>
   <summary>Read more about selector performance</summary>
-  &nbsp;
-  
-  There are 2 reasons of avoiding attribute selectors.
-  
-  1) They are the least performant by themselves.
-  
+  <br>
+  There are couple of reasons for avoiding attribute selectors:
+  <br>
+  1) They are less performant than the class selectors.
+  <br>
   2) Browsers read CSS selectors from right to left direction. Taking an example of a menu item <code>.menu li a</code>:
-  
+  <br>
   Here browser will read <code>a</code> as the first selector then check if it lives inside <code>li</code>, finally check if they both live  inside <code>.menu</code>. This does not affect when there are a few elements on the page but considering too many elements in a complex design, you should definitely avoid this.
-  
-  
 </details>
 
 &nbsp;
 
-#### Don't prefix component name
-Doing this is absolutely unnecessary if your JS framework is already prefixing the component name.
+#### 5. Do not prefix component name
+Assuming that you're using some add-on to generate modular CSS, doing this is absolutely unnecessary and it results in big ugly class names.
 
 _Example:_
-
-❌
-```
+<br>
+👎
+```scss
 .onboarding-heading {
   ...
 }
@@ -98,8 +103,10 @@ _Example:_
 ```
 which compiles to `.onboarding-component__onboarding-heading` & `.onboarding-component__onboarding-sub-heading`. It could be even worse if it had a parent component.
 
-✅
-```
+<br>
+
+👍
+```scss
 .heading {
   ...
 }
@@ -111,22 +118,28 @@ which compiles to `.onboarding-component__onboarding-heading` & `.onboarding-com
 
 &nbsp;
 
-#### How would I know whether I've named the classes correctly or not
-Just a simple trick to follow:
+#### 6. How can you know whether you've named the classes correctly or not?
+Nothing fancy here, just a simple trick:
 
-If you or your code reviewer can understand what the classes do only by reading the CSS file then 👍.
+Once you're done, quickly self-review your CSS code, if you're able to understand roles of all the classes only by reading your CSS then it is 👌.
 
-&nbsp;
+<br>
 
-## Tips for improving Readability
+---
 
-#### Don't nest classes unless really needed
-Use proper **parent-child relationships**. Avoid unnecessary specificity which is also against the CSS selector performance.
+<br>
+
+## Improving readability
+
+#### 1. Do not nest the classes unless really required
+Use proper **parent-child** relationships in class names. Avoid unnecessary specificity which is also against the CSS selector performance as mentioned above.
 
 _Example:_
 
-❌
-```
+<br>
+
+👎
+```scss
 .box {
   ...
 
@@ -136,8 +149,8 @@ _Example:_
 }
 ```
 
-✅
-```
+👍
+```scss
 .box {
   ...
 }
@@ -146,76 +159,130 @@ _Example:_
   ...
 }
 ```
+<br>
 
+#### 2. Group pseudo and modifier classes
+Keep pseudo (`:hover`, `:focus`, etc) and modifier (`.is-`, `.has-`) classes within the element's class to easily identify to which class they belong to.
+_Example:_
 
-#### Group pseudo and modifier classes
-_Example_
-
-❌
-```
+👎
+```scss
 .dropdown {
-  ...
+  color: #fff;
 }
 
 .dropdown:hover {
-  ...
+  color: #eee;
 }
 
-.dropdown.is-collapsed {
-  ...
+.dropdown.is-open {
+  color: #ddd;
 }
+
+.navigation {
+  ...
 ```
 
-✅
-```
+👍
+```scss
 .dropdown {
-  ...
+  color: #fff;
 
   &:hover {
-    ...
+    color: #eee;
   }
 
-  &.is-collapsed {
-    ...
+  &.is-open {
+    color: #ddd;
   }
 }
-```
 
-
-#### Use reverse `&` where the style is dependent on a parent element's class
-_Example:_ Continuing with the same dropdown example, suppose the trigger element's style is dependent on the main component div.
-
-❌
-```
-.dropdown-trigger {
+.navigation {
   ...
+```
+
+<br>
+
+#### 3. Use reverse `&` where the style is dependent on a parent element's class
+_Example:_ Continuing with the above dropdown example, suppose the trigger element's style is dependent on it's container element:
+
+👎
+```scss
+.dropdown-trigger {
+  display: block;
 }
 
 .is-collapsed .dropdown-trigger {
-  ...
+  display: none;
 }
 ```
 
-✅
-```
+👍
+```scss
 .dropdown-trigger {
-  ...
-  
+  display: block;
+
   .is-collapsed & {
-    ...
+    display: none;
   }
 }
 ```
 
+<br>
 
-#### It's good to write the properties in order
-If you aren't already doing this, you're gonna feel it a bit difficult to follow in the beginning but believe me you will love it once you get used to it.
-We could do sorting in alphabetical order but that hasn't turned out to be very helpful. The most efficient one is ordering by property groups.
+#### 4. It's a good practice to write the properties in order
+If you aren't already writing respecting the order, you're gonna feel it a bit difficult to follow in the beginning but believe me you will love it once you get used to it.
+Instead of sorting properties in alphabetical order, which actually isn't very helpful, consider grouping properties by **type**.
+
+Here's how you order the properties:
+
+```scss
+.selector {
+
+  /* Imported style */
+  @extend %another-style;
+
+  /* CSS content */
+  content: '';
+
+  /* Position */
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  right: 0;
+
+  /* Display & box model */
+  display: inline-block;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  margin: 10px;
+  border: 10px solid #333;
+
+  /* Color */
+  background: #000;
+  color: #fff;
+
+  /* Text */
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  text-align: right;
+
+  /* Other */
+  cursor: pointer;
+
+  /* Transition & animation */
+  transition: color 0.15s;
+  animation: slide 0.2s forwards;
+}
+```
 
 _Example:_
 
-❌
-```
+👎
+```scss
 .box {
   background-color: #fff;
   width: 200px;
@@ -223,8 +290,9 @@ _Example:_
   height: 300px;
 }
 ```
-✅
-```
+
+👍
+```scss
 .box {
   position: relative;
   width: 200px;
@@ -233,61 +301,15 @@ _Example:_
 }
 ```
 
-<details>
-  <summary>More details on ordering CSS properties</summary>
-  <pre><code>
-    .selector {
-      
-      /* Imported style */
-      @extend %another-style;
-      
-      /* CSS content */
-      content: '';
-      
-      /* Position */
-      position: absolute;
-      z-index: 10;
-      top: 0;
-      right: 0;
-      
-      /* Display & box model */
-      display: inline-block;
-      overflow: hidden;
-      width: 100px;
-      height: 100px;
-      padding: 10px;
-      margin: 10px;
-      border: 10px solid #333;
-      
-      /* Color */
-      background: #000;
-      color: #fff;
-      
-      /* Text */
-      font-family: sans-serif;
-      font-size: 16px;
-      line-height: 1.4;
-      text-align: right;
-      
-      /* Other */
-      cursor: pointer;
-      
-      /* Transition & animation */
-      transition: color 0.15s;
-      animation: slide 0.2s forwards;
-    }
+<br>
 
- </code></pre>
-</details>
-
-
-#### Use `:not()` instead of overriding property values
-This one is quite obvious but I've seen in many codebases, developers forget to use it. So it might be worth mentioning here.
+#### 5. Use `:not()` instead of overriding property values
+This one is quite obvious but it might be worth mentioning here since developers sometimes forget to use it.
 
 _Example:_
 
-❌
-```
+👎
+```scss
 .item {
   border: 1px solid #eee;
 
@@ -297,38 +319,44 @@ _Example:_
 }
 ```
 
-✅
-```
+👍
+```scss
 .item:not(:last-child) {
   border: 1px solid #eee;
 }
 ```
 
+<br>
 
-#### Going against best practices?
-Several times we write the CSS that simply doesn't feel right, for example, using negative margins, `!important`, etc. It's good to avoid such code but in case it is the only best possible solution, **don't forget to add a comment describing the problem**.
+#### 6. If you're going against the best practices
+If you end up writing such code like negative margins, `!important`, etc. and it seems the only best possible solution, **do not forget to add a comment describing your problem**.
 
+<br>
 
-#### Abstraction in modular CSS?
-No. Keep your CSS within the same component. If you think that you're repeating the same code in several components, create the mixins instead.
+#### 7. Abstraction in modular CSS?
+No. Keep your CSS within the same component. If you think that you're repeating the same code in several components, create mixins instead.
 
-&nbsp;
+<br>
 
-## Avoid mistakes
+---
 
-#### Avoid using shorthands
-Yes, CSS shorthands are considered as anti-patterns unless you're changing all the values of a property.
+<br>
 
-How do we misuse the shorthands:
+## Avoiding mistakes
 
-```
+#### 1. Avoid using shorthands
+CSS shorthands are generally considered as anti-pattern unless you're changing all the values of a property.
+
+How we misuse shorthands:
+
+```scss
 .card {
   background: #fff;
 }
 ```
 
 What we are actually telling the browser to do:
-```
+```scss
 .card {
   background-image: initial;
   background-position-x: initial;
@@ -344,12 +372,13 @@ What we are actually telling the browser to do:
 ```
 
 What we really meant:
-```
+```scss
 .card {
   background-color: #fff;
 }
 ```
 <details>
+<br>
 <summary>Brief on problems with shorthands</summary>
 
 Suppose you want to override font properties for an element:
@@ -366,10 +395,21 @@ body {
 }
 </code></pre>
 
-and unknowing your line-height is set to initial.
+and unknowingly, <code>line-height</code> is also set to <code>initial</code>.
 </details>
 
+<br>
 
+#### 2. Avoid `margin-top`, use `margin-bottom`
+Unlike horizontal margins, vertical margins do collapse. To avoid this, it's a good idea to always keep the margins one direction. Choosing the one with the most use cases, good to go with `margin-bottom`.
 
-#### Avoid `margin-top` and give `margin-bottom`
-Unlike horizontal margins, vertical margins do collapse. To avoid this, it's a good idea to always give margin in one direction. Choosing one with the most use cases, good to go with `margin-bottom`.
+<br>
+
+---
+
+<br>
+
+#### Terms used:
+* **Attribute selector** - HTML element selectors such as `div`, `span`, `p`, etc.
+* **Key selector** - Last child in nested selectors group. e.g. `nav li a`, here `a` is the key selector
+* **Parent-child relationship in CSS classes** - It refers to prefixing parent class name to it's children to make the child class names more relevant. e.g. Say `.box-title`, `.box-image`, where `.box` is a parent.
